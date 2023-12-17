@@ -53,9 +53,12 @@ class DetailMovieViewModel @Inject constructor(
             when(result){
                 is Resource.Success -> {
                     // take only video from youtube
-                    result.data?.results?.filter { it.site == "YouTube" }.let { data ->
-                        _videosTrailer.postValue(data)
-                    }
+                    result.data?.results
+                        ?.filter { it.site == "YouTube" }
+                        .takeIf { !it.isNullOrEmpty() }
+                        ?.let { data ->
+                            _videosTrailer.postValue(data)
+                        }
                 }
 
                 is Resource.Failure -> {
