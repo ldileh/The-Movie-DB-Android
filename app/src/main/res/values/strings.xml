@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">The Movie DB</string>
+    <string name="text_genre">Genre</string>
+    <string name="text_submit">Submit</string>
+    <string name="text_reset">Reset</string>
+    <string name="page_detail_movie">Detail Movie</string>
+    <string name="text_reviews">Reviews</string>
+    <string name="page_user_reviews">User Reviews</string>
+</resources>
