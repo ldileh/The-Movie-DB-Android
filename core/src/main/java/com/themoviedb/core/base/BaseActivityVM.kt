@@ -26,9 +26,7 @@ abstract class BaseActivityVM<T: ViewBinding, A: BaseViewModel>(bindingFactory: 
                     messageType,
                     msg
                 )
-
             }
-            eventRestart.observe(this@BaseActivityVM) { result -> if (result) this@BaseActivityVM.forceCloseApp() }
         }
     }
 }
