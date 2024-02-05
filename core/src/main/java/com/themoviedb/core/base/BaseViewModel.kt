@@ -7,14 +7,16 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 open class BaseViewModel(
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val dispatcher: CoroutineDispatcher
 ) : ViewModel(), CoroutineScope{
 
-    private val supervisorJob = SupervisorJob()
-
-    override val coroutineContext: CoroutineContext get() = dispatcher + supervisorJob
+    private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
+        eventMessage.postValue(exception.message)
+    }
 
     val eventMessage = MutableLiveData<String>()
+
+    override val coroutineContext: CoroutineContext get() = dispatcher + exceptionHandler
 
     /**
      * Handle response from remote data.
