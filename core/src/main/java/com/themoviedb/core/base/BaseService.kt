@@ -1,24 +1,14 @@
 package com.themoviedb.core.base
 
-import com.themoviedb.core.utils.Resource
-import com.themoviedb.core.utils.RetrofitConfig
-import com.themoviedb.core.utils.ext.logError
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import com.themoviedb.core.utils.Resource
+import com.themoviedb.core.utils.ext.logError
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
-
 abstract class BaseService {
-
-    companion object{
-
-        fun <T> createService(serviceClass: Class<T>, url: String, isDebug: Boolean): T = RetrofitConfig
-            .getRetrofitBuilder(url, isDebug)
-            .create(serviceClass)
-    }
-
     protected suspend fun <T> getResult(
         call: suspend () -> Response<T>
     ): Resource<T> = call().let { response ->
