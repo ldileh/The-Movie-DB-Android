@@ -1,7 +1,6 @@
 package com.themoviedb.test.source.remote
 
 import com.themoviedb.core.base.BaseService
-import javax.inject.Inject
 
 class MovieClient(private val service: MovieService): BaseService() {
 
