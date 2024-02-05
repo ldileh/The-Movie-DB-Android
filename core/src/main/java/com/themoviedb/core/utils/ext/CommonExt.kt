@@ -4,7 +4,7 @@ import android.content.res.Resources
 
 fun Int?.safe() = this ?: 0
 
-fun String?.safe() = this ?: ""
+fun String?.safe(default: String = "") = this ?: default
 
 fun Double?.safe() = this ?: 0.0
 
