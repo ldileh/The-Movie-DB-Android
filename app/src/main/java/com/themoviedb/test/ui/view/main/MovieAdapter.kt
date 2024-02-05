@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.themoviedb.core.utils.ext.safe
 import com.themoviedb.test.databinding.ItemMovieBinding
-import com.themoviedb.test.domain.remote.model.Movie
-import com.themoviedb.test.util.extenstion.getImageUrl
+import com.themoviedb.test.model.source.remote.Movie
+import com.themoviedb.test.util.ext.getImageUrl
 
 class MovieAdapter(
     private val onClickItem: (movieId: Int) -> Unit

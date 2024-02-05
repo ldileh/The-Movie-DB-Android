@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.themoviedb.core.utils.ext.dp
 import com.themoviedb.core.utils.ext.safe
 import com.themoviedb.test.databinding.ItemUserReviewBinding
-import com.themoviedb.test.domain.remote.model.Review
-import com.themoviedb.test.util.extenstion.html
+import com.themoviedb.test.model.source.remote.Review
+import com.themoviedb.core.utils.ext.html
 
 class UserReviewsAdapter: PagingDataAdapter<Review, UserReviewsAdapter.ViewHolder>(CharacterComparator) {
 

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.themoviedb.test.databinding.ItemMovieTrailerBinding
-import com.themoviedb.test.domain.remote.model.Video
+import com.themoviedb.test.model.source.remote.Video
 
 class MovieTrailerAdapter(
     private val onClick: (Video) -> Unit

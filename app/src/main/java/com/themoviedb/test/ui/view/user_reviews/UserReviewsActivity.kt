@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.themoviedb.core.base.BaseActivityVM
 import com.themoviedb.test.databinding.ActivityUserReviewsBinding
-import com.themoviedb.test.ui.viewmodel.UserReviewViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 

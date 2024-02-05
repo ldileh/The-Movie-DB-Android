@@ -3,8 +3,8 @@ package com.themoviedb.test.di
 import com.themoviedb.core.base.BaseService
 import com.themoviedb.test.BuildConfig
 import com.themoviedb.test.config.GlobalConfig
-import com.themoviedb.test.domain.remote.RemoteDataSource
-import com.themoviedb.test.domain.remote.RemoteService
+import com.themoviedb.test.source.remote.RemoteDataSource
+import com.themoviedb.test.source.remote.RemoteService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

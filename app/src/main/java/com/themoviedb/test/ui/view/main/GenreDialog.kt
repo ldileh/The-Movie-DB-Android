@@ -9,8 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.themoviedb.core.utils.ext.safe
 import com.themoviedb.test.databinding.DialogGenreBinding
 import com.themoviedb.test.databinding.ItemGenreBinding
-import com.themoviedb.test.ui.model.GenreModel
-import com.themoviedb.test.ui.viewmodel.MainViewModel
+import com.themoviedb.test.model.ui.GenreModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class GenreDialog : BottomSheetDialogFragment() {

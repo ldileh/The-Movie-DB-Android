@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import com.themoviedb.core.component.dialog.CustomProgressDialog
+import com.themoviedb.core.widget.dialog.CustomProgressDialog
 import com.themoviedb.core.config.BaseConfig
 import com.themoviedb.core.utils.PageMessageUtil
 

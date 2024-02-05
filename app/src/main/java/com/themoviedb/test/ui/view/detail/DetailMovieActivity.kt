@@ -11,7 +11,6 @@ import com.themoviedb.core.base.BaseActivityVM
 import com.themoviedb.test.R
 import com.themoviedb.test.databinding.ActivityDetailMovieBinding
 import com.themoviedb.test.ui.view.user_reviews.UserReviewsActivity
-import com.themoviedb.test.ui.viewmodel.DetailMovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

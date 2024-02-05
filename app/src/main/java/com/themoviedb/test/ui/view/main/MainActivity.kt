@@ -11,7 +11,6 @@ import com.themoviedb.core.utils.PageMessageUtil
 import com.themoviedb.test.R
 import com.themoviedb.test.databinding.ActivityMainBinding
 import com.themoviedb.test.ui.view.detail.DetailMovieActivity
-import com.themoviedb.test.ui.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy

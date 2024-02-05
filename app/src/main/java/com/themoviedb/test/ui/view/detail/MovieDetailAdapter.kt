@@ -8,7 +8,7 @@ import com.themoviedb.test.databinding.ItemMovieDetailDefaultBinding
 import com.themoviedb.test.databinding.ItemMovieDetailFieldBinding
 import com.themoviedb.test.databinding.ItemMovieDetailTitleBinding
 import com.themoviedb.test.databinding.ItemMovieDetailTitleSubBinding
-import com.themoviedb.test.ui.model.MovieDetailModel
+import com.themoviedb.test.model.ui.MovieDetailModel
 
 class MovieDetailAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
