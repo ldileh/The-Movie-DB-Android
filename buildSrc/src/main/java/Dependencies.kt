@@ -24,12 +24,6 @@ object Dependencies {
     const val RetrofitLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.Retrofit.loggingInterceptor}"
     const val RetrofitConverterScalars = "com.squareup.retrofit2:converter-scalars:${Versions.Retrofit.converterScalars}"
 
-    const val DaggerCore = "com.google.dagger:dagger:${Versions.dagger2}"
-    const val DaggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger2}"
-    const val DaggerAndroid = "com.google.dagger:dagger-android:${Versions.dagger2}"
-    const val DaggerAndroidSupport = "com.google.dagger:dagger-android-support:${Versions.dagger2}"
-    const val DaggerAndroidProcessor = "com.google.dagger:dagger-android-processor:${Versions.dagger2}"
-
     const val GlideCore = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val GlideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
 
