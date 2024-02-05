@@ -6,7 +6,6 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import com.themoviedb.core.exception.NoConnectivityException
 import okhttp3.Interceptor
-import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
 
