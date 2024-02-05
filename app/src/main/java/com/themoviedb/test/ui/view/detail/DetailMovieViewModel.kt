@@ -15,9 +15,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailMovieViewModel @Inject constructor(
-    @IoDispatcher private val coroutineDispatcher: CoroutineDispatcher,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
     private val useCase: DetailMovieUseCase
-): BaseViewModel() {
+): BaseViewModel(dispatcher) {
 
     private val _stateUI = MutableStateFlow<MovieDetailState>(MovieDetailState.Idle)
     val stateUI = _stateUI.asStateFlow()
@@ -25,7 +25,7 @@ class DetailMovieViewModel @Inject constructor(
     fun getDetailMovie(movieId: Int) = launch {
         useCase
             .getDetailMovie(movieId)
-            .flowOn(coroutineDispatcher)
+            .flowOn(dispatcher)
             .collectLatest { state ->
                 _stateUI.value = state.also {
                     if(it is MovieDetailState.Failed && it.message.isNotEmpty()){
