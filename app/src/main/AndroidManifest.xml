@@ -4,6 +4,7 @@
     package="com.themoviedb.test">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name="com.themoviedb.test.MyApplication"

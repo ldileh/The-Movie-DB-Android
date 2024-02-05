@@ -1,5 +1,7 @@
 package com.themoviedb.test.di
 
+import android.content.Context
+import com.themoviedb.core.utils.NetworkConnectionInterceptor
 import com.themoviedb.test.BuildConfig
 import com.themoviedb.test.config.GlobalConfig
 import com.themoviedb.test.source.remote.MovieClient
@@ -7,6 +9,7 @@ import com.themoviedb.test.source.remote.MovieService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -20,12 +23,15 @@ internal object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideHttpClientBuilder(): OkHttpClient = OkHttpClient.Builder().apply {
-        if(GlobalConfig.IS_DEBUG)
-            addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
-    }.build()
+    fun provideHttpClientBuilder(@ApplicationContext context: Context): OkHttpClient =
+        OkHttpClient.Builder().apply {
+            if(GlobalConfig.IS_DEBUG)
+                addInterceptor(HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                })
+
+            addInterceptor(NetworkConnectionInterceptor(context))
+        }.build()
 
     @Singleton
     @Provides
