@@ -16,10 +16,6 @@ open class BaseViewModel(
 
     val eventMessage = MutableLiveData<String>()
 
-    fun onError(error: Resource.Failure.ErrorHolder?){
-        error?.let { err -> eventMessage.postValue(err.message) }
-    }
-
     /**
      * Handle response from remote data.
      * In this case, handle response code token expired to inform ui

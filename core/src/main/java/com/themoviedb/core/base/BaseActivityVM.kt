@@ -2,7 +2,6 @@ package com.themoviedb.core.base
 
 import android.view.LayoutInflater
 import androidx.viewbinding.ViewBinding
-import com.themoviedb.core.utils.ext.forceCloseApp
 
 abstract class BaseActivityVM<T: ViewBinding, A: BaseViewModel>(bindingFactory: (LayoutInflater) -> T) : BaseActivity<T>(bindingFactory) {
 
