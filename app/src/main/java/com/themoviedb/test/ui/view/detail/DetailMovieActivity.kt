@@ -6,12 +6,18 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.themoviedb.core.base.BaseActivityVM
 import com.themoviedb.test.R
 import com.themoviedb.test.databinding.ActivityDetailMovieBinding
+import com.themoviedb.test.model.ui.state.MovieDetailState
 import com.themoviedb.test.ui.view.user_reviews.UserReviewsActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailMovieActivity:
@@ -35,10 +41,7 @@ class DetailMovieActivity:
     override fun ActivityDetailMovieBinding.onViewCreated(savedInstanceState: Bundle?) {
         configureList()
 
-        viewModel.apply {
-            getDetailMovie(movieId)
-            getVideosTrailer(movieId)
-        }
+        viewModel.getDetailMovie(movieId)
 
         btnReviews.setOnClickListener {
             UserReviewsActivity.showPage(this@DetailMovieActivity, movieId)
@@ -47,19 +50,23 @@ class DetailMovieActivity:
 
     override fun observeViewModel(viewModel: DetailMovieViewModel) {
         super.observeViewModel(viewModel.apply {
+            lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.CREATED){
+                    stateUI.collectLatest {
+                        when(it){
+                            is MovieDetailState.Success -> {
+                                Glide.with(this@DetailMovieActivity)
+                                    .load(it.bannerUrl)
+                                    .into(binding.viewToolbar.imgBanner)
 
-            bannerImage.observe(this@DetailMovieActivity){ url ->
-                Glide.with(this@DetailMovieActivity)
-                    .load(url)
-                    .into(binding.viewToolbar.imgBanner)
-            }
-
-            detailMovie.observe(this@DetailMovieActivity){ items ->
-                detailAdapter.setItems(items)
-            }
-
-            videosTrailer.observe(this@DetailMovieActivity){ items ->
-                videoTrailerAdapter.setItems(items)
+                                detailAdapter.setItems(it.detailData)
+                                videoTrailerAdapter.setItems(it.videosTrailer)
+                            }
+                            is MovieDetailState.Failed -> {}
+                            is MovieDetailState.Idle -> {}
+                        }
+                    }
+                }
             }
         })
     }

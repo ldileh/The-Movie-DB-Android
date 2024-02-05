@@ -14,8 +14,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
-class UserReviewsActivity:
-    BaseActivityVM<ActivityUserReviewsBinding, UserReviewViewModel>(ActivityUserReviewsBinding::inflate) {
+class UserReviewsActivity: BaseActivityVM<ActivityUserReviewsBinding, UserReviewViewModel>(
+        ActivityUserReviewsBinding::inflate
+) {
 
     private val movieId: Int by lazy { intent.getIntExtra(EXTRA_MOVIE_ID, -1) }
 
