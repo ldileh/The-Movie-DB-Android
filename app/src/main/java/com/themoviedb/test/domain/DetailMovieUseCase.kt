@@ -1,18 +1,15 @@
 package com.themoviedb.test.domain
 
 import com.themoviedb.core.base.BaseUseCase
-import com.themoviedb.test.source.remote.RemoteDataSource
-import javax.inject.Inject
+import com.themoviedb.test.source.repository.MovieRepository
 
-class DetailMovieUseCase @Inject constructor(
-    private val remoteDataSource: RemoteDataSource
-): BaseUseCase() {
+class DetailMovieUseCase(private val movieRepository: MovieRepository): BaseUseCase() {
 
     suspend fun getDetailMovie(movieId: Int) = handleResponse {
-        remoteDataSource.detailMovie(movieId)
+        movieRepository.getDetailMovie(movieId)
     }
 
     suspend fun getVideosTrailer(movieId: Int) = handleResponse {
-        remoteDataSource.movieVideos(movieId)
+        movieRepository.getMovieVideos(movieId)
     }
 }

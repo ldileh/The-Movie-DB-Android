@@ -60,7 +60,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             genreFilter
                 .flatMapLatest { genres ->
-                    mainUseCase.discoverMovies(genres)
+                    mainUseCase.getMovies(genres)
                 }
                 .cachedIn(viewModelScope)
                 .let {

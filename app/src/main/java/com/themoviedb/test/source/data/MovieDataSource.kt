@@ -1,11 +1,12 @@
-package com.themoviedb.test.source.remote
+package com.themoviedb.test.source.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.themoviedb.test.model.source.remote.Movie
+import com.themoviedb.test.source.repository.MovieRepository
 
 class MovieDataSource(
-    private val removeDataSource: RemoteDataSource,
+    private val movieRepository: MovieRepository,
     private val genres: List<Int>?
 ): PagingSource<Int, Movie>() {
 
@@ -27,7 +28,7 @@ class MovieDataSource(
         val pageNumber = params.key ?: 1
 
         return try {
-            val response = removeDataSource.discoverMovies(page = pageNumber, genres = genres)
+            val response = movieRepository.getMovies(page = pageNumber, genres = genres)
             val pagedResponse = response.body()
             val data = pagedResponse?.results
 

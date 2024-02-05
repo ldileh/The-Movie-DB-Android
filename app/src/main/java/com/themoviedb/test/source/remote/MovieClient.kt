@@ -3,7 +3,7 @@ package com.themoviedb.test.source.remote
 import com.themoviedb.core.base.BaseService
 import javax.inject.Inject
 
-class RemoteDataSource @Inject constructor(val service: RemoteService): BaseService() {
+class MovieClient(private val service: MovieService): BaseService() {
 
     suspend fun getMovieGenres() = getResult {
         service.movieGenres()
