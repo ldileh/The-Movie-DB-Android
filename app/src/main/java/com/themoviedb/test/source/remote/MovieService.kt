@@ -22,7 +22,7 @@ interface MovieService {
     suspend fun discoverMovies(
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("page") page: Int,
-        @Query("with_genres") genres: List<Int>? = null,
+        @Query("with_genres") genres: String? = null,
     ): Response<MovieResponseModel>
 
     @GET("movie/{movieId}")

@@ -28,7 +28,10 @@ class MovieDataSource(
         val pageNumber = params.key ?: 1
 
         return try {
-            val response = movieRepository.getMovies(page = pageNumber, genres = genres)
+            val response = movieRepository.getMovies(
+                page = pageNumber,
+                genres = genres?.joinToString("|")
+            )
             val pagedResponse = response.body()
             val data = pagedResponse?.results
 

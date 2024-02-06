@@ -11,7 +11,7 @@ import retrofit2.Response
 interface MovieRepository {
 
     suspend fun getMovieGenres(): Resource<MovieGenresResponseModel>
-    suspend fun getMovies(page: Int, genres: List<Int>?): Response<MovieResponseModel>
+    suspend fun getMovies(page: Int, genres: String?): Response<MovieResponseModel>
     suspend fun getDetailMovie(movieId: Int): Resource<MovieDetailResponseModel>
     suspend fun getMovieReviews(page: Int, movieId: Int): Response<MovieReviewsResponseModel>
     suspend fun getMovieVideos(movieId: Int): Resource<MovieVideosResponseModel>

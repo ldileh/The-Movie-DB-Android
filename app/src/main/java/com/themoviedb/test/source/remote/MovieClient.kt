@@ -8,7 +8,7 @@ class MovieClient(private val service: MovieService): BaseService() {
         service.movieGenres()
     }
 
-    suspend fun discoverMovies(page: Int, genres: List<Int>?) =
+    suspend fun discoverMovies(page: Int, genres: String?) =
         service.discoverMovies(page = page, genres = genres)
 
     suspend fun detailMovie(movieId: Int) = getResult {

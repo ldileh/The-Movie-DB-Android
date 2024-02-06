@@ -20,7 +20,7 @@ class MovieRepositoryImpl @Inject constructor(
 
     override suspend fun getMovies(
         page: Int,
-        genres: List<Int>?,
+        genres: String?,
     ): Response<MovieResponseModel> {
         return movieClient.discoverMovies(page, genres)
     }
