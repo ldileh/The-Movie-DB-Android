@@ -1,6 +1,7 @@
 package com.themoviedb.test.util.ext
 
 import android.widget.ImageView
+import com.themoviedb.core.utils.ext.generateCircularProgress
 import com.themoviedb.test.util.GlideApp
 
 fun ImageView.loadImage(url: String?){
