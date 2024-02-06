@@ -18,34 +18,28 @@ class DetailMovieUseCase(
     suspend fun getDetailMovie(movieId: Int): Flow<MovieDetailState> {
         return flow {
 
-            var result = MovieDetailState.Success()
-
             // collect data of detail response
             when(val movieResponse = handleResponse { movieRepository.getDetailMovie(movieId) }){
                 is Resource.Success -> {
-                    result = MovieDetailState.Success(
+                    val result = MovieDetailState.Success(
                         bannerUrl = getImageUrl(movieResponse.data?.posterPath.safe()),
                         detailData = movieResponse.data.parseAsItems(),
                     )
+
+                    // collect data of video trailer
+                    val trailerResponse = handleResponse { movieRepository.getMovieVideos(movieId) }
+                    if(trailerResponse is Resource.Success){
+                        result.videosTrailer = trailerResponse.data?.results
+                            ?.filter { it.site == "YouTube" }
+                            .takeIf { !it.isNullOrEmpty() } ?: listOf()
+                    }
+
+                    emit(result)
                 }
 
                 is Resource.Failure ->
                     emit(MovieDetailState.Failed(movieResponse.error?.message.safe()))
             }
-
-            // collect data of video trailer
-            when(val trailerResponse = handleResponse { movieRepository.getMovieVideos(movieId) }){
-                is Resource.Success -> {
-                    result.videosTrailer = trailerResponse.data?.results
-                        ?.filter { it.site == "YouTube" }
-                        .takeIf { !it.isNullOrEmpty() } ?: listOf()
-                }
-
-                is Resource.Failure ->
-                    emit(MovieDetailState.Failed(trailerResponse.error?.message.safe()))
-            }
-
-            emit(result)
         }
     }
 
