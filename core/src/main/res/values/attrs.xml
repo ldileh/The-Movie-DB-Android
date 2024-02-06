@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ContainerView">
+        <attr name="show_view" format="enum">
+            <enum name="content" value="1"/>
+            <enum name="error" value="2"/>
+            <enum name="loading" value="3"/>
+        </attr>
+        <attr name="error_message" format="string|reference"/>
+        <attr name="content_view_id" format="reference|integer"/>
+    </declare-styleable>
+</resources>
