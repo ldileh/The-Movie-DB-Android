@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:content_view_id="@id/list"
-            app:error_message="Hello World">
+            app:empty_message="No Movie for Now :(">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list"
