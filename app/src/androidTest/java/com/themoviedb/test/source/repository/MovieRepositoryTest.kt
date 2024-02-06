@@ -26,48 +26,54 @@ class MovieRepositoryTest{
 
     @Test
     fun getMovieGenres() = runBlocking{
-        val size = movieRepository.getMovieGenres().data?.genres?.size
+        val itemSize = movieRepository.getMovieGenres().data?.genres?.size
 
-        assertNotNull(size)
+        assertNotNull("list item of genres is null", itemSize)
     }
 
     @Test
     fun successGetDetailMovie() = runBlocking{
         val data = movieRepository.getDetailMovie(866398).data
-        assertNotNull(data)
+        assertNotNull("detail movie is null", data)
     }
 
     @Test
     fun failedGetDetailMovie() = runBlocking{
         val data = movieRepository.getDetailMovie(-1).data
-        assertNull(data)
+        assertNull("the data detail movie is not null, even the movie id is -1", data)
     }
 
     @Test
-    fun getMovieVideosNotEmpty() = runBlocking{
+    fun getMovieVideoTrailerNotEmpty() = runBlocking{
         val data = movieRepository.getMovieVideos(866398)
             .data
             ?.results
             .takeIf { !it.isNullOrEmpty() }
 
-        assertNotNull(data)
+        assertNotNull("movie video trailer is null/empty", data)
     }
 
     @Test
     fun getMovieVideosEmpty() = runBlocking{
-        val data = movieRepository.getMovieVideos(1232289)
+        val data = movieRepository.getMovieVideos(-1)
             .data
             ?.results
             .takeIf { !it.isNullOrEmpty() }
 
-        assertNull(data)
+        assertNull(
+            "the movie video trailer is not null/empty, even the movie id is -1",
+            data
+        )
     }
 
     @Test
     fun successGetMovies() = runBlocking {
         val response = movieRepository.getMovies(1, null)
 
-        assertTrue(response.isSuccessful)
+        assertTrue(
+            "Failed get movies, response code ${response.code()}",
+            response.isSuccessful
+        )
         assertNotNull(response.body()?.results)
     }
 
@@ -75,7 +81,13 @@ class MovieRepositoryTest{
     fun wrongNumberPageWhileGetMovies() = runBlocking {
         val response = movieRepository.getMovies(-1, null)
 
-        assertFalse(response.isSuccessful)
-        assertNull(response.body())
+        assertFalse(
+            "response is still success, even paging number is -1",
+            response.isSuccessful
+        )
+        assertNull(
+            "response body data is not null, even paging number is -1 ",
+            response.body()
+        )
     }
 }
