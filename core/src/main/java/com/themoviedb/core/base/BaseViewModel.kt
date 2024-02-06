@@ -2,8 +2,9 @@ package com.themoviedb.core.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.themoviedb.core.utils.Resource
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
 import kotlin.coroutines.CoroutineContext
 
 open class BaseViewModel(
@@ -17,15 +18,4 @@ open class BaseViewModel(
     val eventMessage = MutableLiveData<String>()
 
     override val coroutineContext: CoroutineContext get() = dispatcher + exceptionHandler
-
-    /**
-     * Handle response from remote data.
-     * In this case, handle response code token expired to inform ui
-     */
-    suspend fun <T> Resource<T>.getResultCase(callback: suspend (result: Resource<T>) -> Unit){
-        withContext(Dispatchers.Main){
-            // return result
-            callback(this@getResultCase)
-        }
-    }
 }
