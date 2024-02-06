@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.themoviedb.core.base.BaseActivityVM
+import com.themoviedb.core.widget.ContainerView
 import com.themoviedb.test.R
 import com.themoviedb.test.databinding.ActivityDetailMovieBinding
 import com.themoviedb.test.model.ui.state.MovieDetailState
@@ -46,6 +47,10 @@ class DetailMovieActivity:
         btnReviews.setOnClickListener {
             UserReviewsActivity.showPage(this@DetailMovieActivity, movieId)
         }
+
+        getContainerView().addListenerOnRetry{
+            viewModel.getDetailMovie(movieId)
+        }
     }
 
     override fun observeViewModel(viewModel: DetailMovieViewModel) {
@@ -55,6 +60,10 @@ class DetailMovieActivity:
                     stateUI.collectLatest {
                         when(it){
                             is MovieDetailState.Success -> {
+                                binding.viewToolbar.appBar.setExpanded(true)
+
+                                getContainerView().setView(ContainerView.SHOW_VIEW_CONTENT)
+
                                 Glide.with(this@DetailMovieActivity)
                                     .load(it.bannerUrl)
                                     .into(binding.viewToolbar.imgBanner)
@@ -62,8 +71,17 @@ class DetailMovieActivity:
                                 detailAdapter.setItems(it.detailData)
                                 videoTrailerAdapter.setItems(it.videosTrailer)
                             }
-                            is MovieDetailState.Failed -> {}
-                            is MovieDetailState.Idle -> {}
+                            is MovieDetailState.Failed -> {
+                                binding.viewToolbar.appBar.setExpanded(false)
+
+                                getContainerView().apply {
+                                    setView(ContainerView.SHOW_VIEW_ERROR)
+                                    setErrorMessage(it.message)
+                                }
+                            }
+                            is MovieDetailState.Idle -> {
+                                getContainerView().setView(ContainerView.SHOW_VIEW_LOADING)
+                            }
                         }
                     }
                 }
@@ -112,6 +130,8 @@ class DetailMovieActivity:
     private fun openBrowser(url: String){
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
+
+    private fun getContainerView(): ContainerView = binding.viewContainer
 
     companion object{
 
