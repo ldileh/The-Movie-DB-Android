@@ -8,11 +8,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.themoviedb.core.base.BaseActivityVM
 import com.themoviedb.core.utils.PageMessageUtil
+import com.themoviedb.core.utils.ext.hide
 import com.themoviedb.core.utils.ext.safe
+import com.themoviedb.core.utils.ext.show
 import com.themoviedb.core.widget.ContainerView
 import com.themoviedb.test.R
 import com.themoviedb.test.databinding.ActivityMainBinding
+import com.themoviedb.test.ui.view.adapter.GenreAdapter
 import com.themoviedb.test.ui.view.detail.DetailMovieActivity
+import com.themoviedb.test.util.ext.observeFlows
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -22,9 +26,13 @@ import kotlinx.coroutines.flow.filter
 @AndroidEntryPoint
 class MainActivity : BaseActivityVM<ActivityMainBinding, MainViewModel>(ActivityMainBinding::inflate) {
 
-    private val movieAdapter: MovieAdapter = MovieAdapter{ movieId ->
-        DetailMovieActivity.showPage(this@MainActivity, movieId)
+    private val movieAdapter: MovieAdapter by lazy {
+        MovieAdapter{ movieId ->
+            DetailMovieActivity.showPage(this@MainActivity, movieId)
+        }
     }
+
+    private val genreAdapter: GenreAdapter by lazy { GenreAdapter() }
 
     override val viewModel: MainViewModel by viewModels()
 
@@ -46,6 +54,14 @@ class MainActivity : BaseActivityVM<ActivityMainBinding, MainViewModel>(Activity
             }
         })
 
+        observeFlows {
+            viewModel.genreFilter.collectLatest { selected ->
+                genreAdapter.setItems(viewModel.itemsGenre.filter { it.isSelected })
+
+                binding.viewGenre.apply { if(!selected.isNullOrEmpty()) show() else hide() }
+            }
+        }
+
         // init paging response
         lifecycleScope.launchWhenCreated {
             viewModel.responseMovie.collectLatest { pagingData ->
@@ -55,7 +71,7 @@ class MainActivity : BaseActivityVM<ActivityMainBinding, MainViewModel>(Activity
             movieAdapter.loadStateFlow
                 .distinctUntilChangedBy { it.refresh }
                 .filter { it.refresh is LoadState.NotLoading }
-                .collect { binding.list.scrollToPosition(0) }
+                .collect { binding.listMovie.scrollToPosition(0) }
         }
     }
 
@@ -68,8 +84,7 @@ class MainActivity : BaseActivityVM<ActivityMainBinding, MainViewModel>(Activity
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             R.id.action_genre -> {
-                GenreDialog()
-                    .show(supportFragmentManager, GenreDialog::class.simpleName)
+                showDialogGenre()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -84,33 +99,48 @@ class MainActivity : BaseActivityVM<ActivityMainBinding, MainViewModel>(Activity
         getContainerView().addListenerOnRetry{
             movieAdapter.refresh()
         }
+
+        viewGenre.setOnClickListener {
+            showDialogGenre()
+        }
+        listGenre.setOnClickListener {
+            showDialogGenre()
+        }
+    }
+
+    private fun showDialogGenre(){
+        GenreDialog().show(supportFragmentManager, GenreDialog::class.simpleName)
     }
 
     private fun configureList(){
-        binding.list.apply {
-            postponeEnterTransition()
-            viewTreeObserver.addOnPreDrawListener {
-                startPostponedEnterTransition()
-                true
-            }
-
-            movieAdapter.addLoadStateListener {
-                binding.viewRefresh.isRefreshing = it.refresh is LoadState.Loading
-
-                getContainerView().apply {
-                    val viewType = when(val state = it.refresh){
-                        is LoadState.Loading -> ContainerView.SHOW_VIEW_LOADING
-                        is LoadState.Error -> {
-                            getContainerView().setErrorMessage(state.error.message.safe())
-                            ContainerView.SHOW_VIEW_ERROR
-                        }
-                        else -> ContainerView.SHOW_VIEW_CONTENT
-                    }
-                    setView(viewType)
+        binding.apply {
+            listMovie.apply {
+                postponeEnterTransition()
+                viewTreeObserver.addOnPreDrawListener {
+                    startPostponedEnterTransition()
+                    true
                 }
+
+                movieAdapter.addLoadStateListener {
+                    binding.viewRefresh.isRefreshing = it.refresh is LoadState.Loading
+
+                    getContainerView().apply {
+                        val viewType = when(val state = it.refresh){
+                            is LoadState.Loading -> ContainerView.SHOW_VIEW_LOADING
+                            is LoadState.Error -> {
+                                getContainerView().setErrorMessage(state.error.message.safe())
+                                ContainerView.SHOW_VIEW_ERROR
+                            }
+                            else -> ContainerView.SHOW_VIEW_CONTENT
+                        }
+                        setView(viewType)
+                    }
+                }
+
+                adapter = movieAdapter
             }
 
-            adapter = movieAdapter
+            listGenre.adapter = genreAdapter
         }
     }
 

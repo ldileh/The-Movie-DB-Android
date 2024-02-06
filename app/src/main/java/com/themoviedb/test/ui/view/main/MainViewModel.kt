@@ -15,6 +15,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
@@ -27,11 +28,12 @@ class MainViewModel @Inject constructor(
     private val mainUseCase: MainUseCase
 ) : BaseViewModel(dispatcher) {
 
-    private val genreFilter = MutableStateFlow<List<Int>?>(null)
+    private val _genreFilter = MutableStateFlow<List<Int>?>(null)
+    val genreFilter: StateFlow<List<Int>?> = _genreFilter
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val responseMovie: Flow<PagingData<Movie>>
-        get() = genreFilter
+        get() = _genreFilter
             .flatMapLatest { genres -> mainUseCase.getMovies(genres) }
             .cachedIn(viewModelScope)
 
@@ -54,7 +56,7 @@ class MainViewModel @Inject constructor(
                 item.isSelected = true
             }
         }
-        genreFilter.emit(genreIdSelected?.ifEmpty { null })
+        _genreFilter.emit(genreIdSelected?.ifEmpty { null })
 
         _triggerRefreshMovie.postValue(true)
     }
