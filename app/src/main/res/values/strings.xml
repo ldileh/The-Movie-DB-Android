@@ -6,4 +6,6 @@
     <string name="page_detail_movie">Detail Movie</string>
     <string name="text_reviews">Reviews</string>
     <string name="page_user_reviews">User Reviews</string>
+    <string name="text_selected_genre">Selected Genre</string>
+    <string name="text_field_rating">Rating:</string>
 </resources>

@@ -2,4 +2,6 @@
 <resources>
     <!-- text -->
     <string name="text_loading">Loading…</string>
+    <string name="text_retry">Retry</string>
+    <string name="text_empty_data">Empty Data</string>
 </resources>
