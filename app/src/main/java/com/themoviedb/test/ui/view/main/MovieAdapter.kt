@@ -10,6 +10,7 @@ import com.themoviedb.core.utils.ext.safe
 import com.themoviedb.test.databinding.ItemMovieBinding
 import com.themoviedb.test.model.source.remote.Movie
 import com.themoviedb.test.util.ext.getImageUrl
+import com.themoviedb.test.util.ext.loadImage
 
 class MovieAdapter(
     private val onClickItem: (movieId: Int) -> Unit
@@ -19,12 +20,7 @@ class MovieAdapter(
 
         fun bind(data: Movie){
             binding.apply {
-                val context = root.context
-
-                Glide.with(context)
-                    .load(getImageUrl(data.posterPath))
-                    .into(imgBanner)
-
+                imgBanner.loadImage(getImageUrl(data.posterPath))
                 tvName.text = data.title
 
                 root.setOnClickListener {

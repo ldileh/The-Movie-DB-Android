@@ -9,13 +9,13 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.bumptech.glide.Glide
 import com.themoviedb.core.base.BaseActivityVM
 import com.themoviedb.core.widget.ContainerView
 import com.themoviedb.test.R
 import com.themoviedb.test.databinding.ActivityDetailMovieBinding
 import com.themoviedb.test.model.ui.state.MovieDetailState
 import com.themoviedb.test.ui.view.user_reviews.UserReviewsActivity
+import com.themoviedb.test.util.ext.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -64,9 +64,7 @@ class DetailMovieActivity:
 
                                 getContainerView().setView(ContainerView.SHOW_VIEW_CONTENT)
 
-                                Glide.with(this@DetailMovieActivity)
-                                    .load(it.bannerUrl)
-                                    .into(binding.viewToolbar.imgBanner)
+                                binding.viewToolbar.imgBanner.loadImage(it.bannerUrl)
 
                                 detailAdapter.setItems(it.detailData)
                                 videoTrailerAdapter.setItems(it.videosTrailer)

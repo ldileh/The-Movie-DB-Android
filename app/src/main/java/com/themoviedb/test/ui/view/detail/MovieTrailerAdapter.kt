@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.themoviedb.test.databinding.ItemMovieTrailerBinding
 import com.themoviedb.test.model.source.remote.Video
+import com.themoviedb.test.util.ext.loadImage
 
 class MovieTrailerAdapter(
     private val onClick: (Video) -> Unit
@@ -20,12 +20,7 @@ class MovieTrailerAdapter(
 
         fun bind(item: Video){
             binding.apply {
-                val context = root.context
-
-                Glide.with(context)
-                    .load("https://img.youtube.com/vi/${item.key}/hqdefault.jpg")
-                    .into(imgBanner)
-
+                imgBanner.loadImage("https://img.youtube.com/vi/${item.key}/hqdefault.jpg")
                 tvDescription.text = item.name
 
                 root.setOnClickListener {
