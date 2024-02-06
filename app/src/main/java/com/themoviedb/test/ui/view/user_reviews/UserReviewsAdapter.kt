@@ -21,7 +21,7 @@ class UserReviewsAdapter: PagingDataAdapter<Review, UserReviewsAdapter.ViewHolde
         fun bind(position: Int, data: Review){
             binding.apply {
                 tvName.text = data.author.safe()
-                tvRating.text = "Rating: ${data.authorDetails?.rating.safe()}"
+                tvRating.text = data.authorDetails?.rating.safe().toString()
                 tvReview.html(data.content.safe())
 
                 val params = LinearLayout.LayoutParams(

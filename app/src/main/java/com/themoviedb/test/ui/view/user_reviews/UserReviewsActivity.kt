@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.themoviedb.core.base.BaseActivityVM
+import com.themoviedb.core.utils.ext.safe
+import com.themoviedb.core.widget.ContainerView
 import com.themoviedb.test.databinding.ActivityUserReviewsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -26,7 +28,12 @@ class UserReviewsActivity: BaseActivityVM<ActivityUserReviewsBinding, UserReview
 
     override fun ActivityUserReviewsBinding.onViewCreated(savedInstanceState: Bundle?) {
         list.configure()
+
         viewModel.setMovieIdNumber(movieId)
+
+        getContainerView().addListenerOnRetry{
+            userReviewAdapter.refresh()
+        }
     }
 
     override fun observeViewModel(viewModel: UserReviewViewModel) {
@@ -59,20 +66,30 @@ class UserReviewsActivity: BaseActivityVM<ActivityUserReviewsBinding, UserReview
     private fun RecyclerView.configure(){
         adapter = userReviewAdapter.apply {
             addLoadStateListener {
-                binding.showEmptyItems(this.itemCount < 1)
+                val isEmpty = this.itemCount < 1
+
+                getContainerView().apply {
+                    val viewType = when(val state = it.refresh){
+                        is LoadState.Loading -> ContainerView.SHOW_VIEW_LOADING
+                        is LoadState.Error -> {
+                            setErrorMessage(state.error.message.safe())
+                            ContainerView.SHOW_VIEW_ERROR
+                        }
+                        else -> {
+                            if(isEmpty){
+                                ContainerView.SHOW_VIEW_EMPTY
+                            }else{
+                                ContainerView.SHOW_VIEW_CONTENT
+                            }
+                        }
+                    }
+                    setView(viewType)
+                }
             }
         }
     }
 
-    private fun ActivityUserReviewsBinding.showEmptyItems(isShow: Boolean = false){
-        if (isShow){
-            list.visibility = View.GONE
-            viewEmpty.visibility = View.VISIBLE
-        }else{
-            list.visibility = View.VISIBLE
-            viewEmpty.visibility = View.GONE
-        }
-    }
+    private fun getContainerView(): ContainerView = binding.root
 
     companion object{
 
