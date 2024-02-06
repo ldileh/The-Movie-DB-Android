@@ -78,6 +78,8 @@ class DetailMovieActivity:
                                 }
                             }
                             is MovieDetailState.Idle -> {
+                                binding.viewToolbar.appBar.setExpanded(false)
+
                                 getContainerView().setView(ContainerView.SHOW_VIEW_LOADING)
                             }
                         }
