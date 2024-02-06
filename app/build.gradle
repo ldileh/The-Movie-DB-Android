@@ -84,7 +84,6 @@ dependencies {
     implementation(Dependencies.HiltActivity)
     implementation(Dependencies.HiltFragment)
     implementation(Dependencies.HiltViewModelCompiler)
-    implementation 'androidx.test:runner:1.5.2'
     kapt(Dependencies.HiltCompiler)
 
     // lifecycle
@@ -110,6 +109,7 @@ dependencies {
     testImplementation(Dependencies.jUnit)
     androidTestImplementation(Dependencies.jUnitTestExt)
     androidTestImplementation(Dependencies.jUnitTestExt)
+    implementation(Dependencies.testRunner)
 }
 
 repositories {

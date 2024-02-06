@@ -47,6 +47,7 @@ object Dependencies {
     const val jUnitTestExt = "androidx.test.ext:junit:${Versions.jUnitTestExt}"
     const val Espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     const val CoroutineTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.Kotlin.coroutinesTest}"
+    const val testRunner = "androidx.test:runner:${Versions.testRunner}"
 
     const val Paging = "androidx.paging:paging-runtime-ktx:${Versions.paging}"
 

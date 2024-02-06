@@ -54,9 +54,6 @@ dependencies {
     api(Dependencies.RetrofitConverterScalars)
     api(Dependencies.RetrofitConverterGson)
 
-    // unit testing
-    testApi(Dependencies.jUnit)
-
     // timber
     api(Dependencies.Timber)
 

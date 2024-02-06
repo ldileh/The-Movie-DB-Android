@@ -15,6 +15,7 @@ object Versions{
     const val swipeRefreshLayout = "1.1.0"
     const val jUnitTestExt = "1.1.5"
     const val espresso = "3.5.1"
+    const val testRunner = "1.5.2"
 
     object Kotlin {
         const val core = "1.6.0"
