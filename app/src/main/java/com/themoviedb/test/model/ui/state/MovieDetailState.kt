@@ -13,5 +13,5 @@ sealed class MovieDetailState {
 
     data class Failed(val message: String): MovieDetailState()
 
-    object Idle: MovieDetailState()
+    data object Idle: MovieDetailState()
 }
