@@ -62,4 +62,7 @@ dependencies {
 
     // timber
     api(Dependencies.Timber)
+
+    // lottie
+    implementation(Dependencies.Lottie)
 }
