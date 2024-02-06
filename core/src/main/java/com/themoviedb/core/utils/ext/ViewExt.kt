@@ -1,8 +1,10 @@
 package com.themoviedb.core.utils.ext
 
+import android.content.Context
 import android.graphics.Color
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.google.android.material.snackbar.Snackbar
 
 @Suppress("unused")
@@ -41,3 +43,11 @@ fun View.showSnackBarClose(
 fun View.snackBarGenerator(msg: String?) = Snackbar
     .make(this, msg ?: "", Snackbar.LENGTH_SHORT)
     .setTextColor(Color.WHITE)
+
+fun generateCircularProgress(context: Context): CircularProgressDrawable {
+    return CircularProgressDrawable(context).apply {
+        strokeWidth = 5f
+        centerRadius = 30f
+        start()
+    }
+}
