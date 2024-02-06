@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.themoviedb.core.base.BaseActivityVM
 import com.themoviedb.core.utils.PageMessageUtil
+import com.themoviedb.core.widget.ContainerView
 import com.themoviedb.test.R
 import com.themoviedb.test.databinding.ActivityMainBinding
 import com.themoviedb.test.ui.view.detail.DetailMovieActivity
@@ -41,6 +42,10 @@ class MainActivity : BaseActivityVM<ActivityMainBinding, MainViewModel>(Activity
                 if(isRefresh){
                     movieAdapter.refresh()
                 }
+            }
+
+            eventMessage.observe(this@MainActivity){
+                getContainerView().setErrorMessage(it)
             }
         })
 
@@ -78,6 +83,10 @@ class MainActivity : BaseActivityVM<ActivityMainBinding, MainViewModel>(Activity
         viewRefresh.setOnRefreshListener {
             movieAdapter.refresh()
         }
+
+        getContainerView().addListenerOnRetry{
+            movieAdapter.refresh()
+        }
     }
 
     private fun configureList(){
@@ -90,8 +99,20 @@ class MainActivity : BaseActivityVM<ActivityMainBinding, MainViewModel>(Activity
 
             movieAdapter.addLoadStateListener {
                 binding.viewRefresh.isRefreshing = it.refresh is LoadState.Loading
+
+                getContainerView().apply {
+                    val viewType = when(it.refresh){
+                        is LoadState.Loading -> ContainerView.SHOW_VIEW_LOADING
+                        is LoadState.Error -> ContainerView.SHOW_VIEW_ERROR
+                        else -> ContainerView.SHOW_VIEW_CONTENT
+                    }
+                    setView(viewType)
+                }
             }
+
             adapter = movieAdapter
         }
     }
+
+    private fun getContainerView(): ContainerView = binding.containerView
 }
