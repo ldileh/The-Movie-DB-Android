@@ -16,10 +16,13 @@
 * [Paging 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview?hl=id)
 * ViewModel
 
+## Pattern
+The pattern used in this project is MVVM + use case
+
 ## Requirements
 
-* Gradle JDK : 17.0.7
-* Java Version : 1.8
+* Gradle JDK: 17.0.7
+* Java Version: 1.8
 * [Android SDK](https://developer.android.com/studio/index.html)
 
 ![Example Gradle JDK](https://github.com/ldileh/The-Movie-DB-Android/blob/6cfa89cc0fbf29a179e89da9e6f03a599a3cf852/gradle_jdk_example.png)
