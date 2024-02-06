@@ -12,6 +12,7 @@ object Dependencies {
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     const val androidSupport = "com.android.support:support-v4:${Versions.androidSupport}"
     const val lifeCycleJava = "androidx.lifecycle:lifecycle-common-java8:${Versions.lifeCycleJava}"
+    const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayout}"
 
     const val KotlinCore = "androidx.core:core-ktx:${Versions.Kotlin.core}"
     const val KotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.Kotlin.gradle}"

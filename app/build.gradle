@@ -96,6 +96,10 @@ dependencies {
     // paging
     implementation(Dependencies.Paging)
 
+    // glide
+    api(Dependencies.GlideCore)
+    kapt(Dependencies.GlideCompiler)
+
     // lottie
     implementation(Dependencies.Lottie)
 }

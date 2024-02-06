@@ -39,6 +39,7 @@ dependencies {
     implementation(Dependencies.appCompat)
     api(Dependencies.material)
     api(Dependencies.lifeCycleJava)
+    api(Dependencies.swipeRefreshLayout)
 
     // kotlin
     api(Dependencies.KotlinCore)
@@ -52,10 +53,6 @@ dependencies {
     api(Dependencies.RetrofitLoggingInterceptor)
     api(Dependencies.RetrofitConverterScalars)
     api(Dependencies.RetrofitConverterGson)
-
-    // glide
-    api(Dependencies.GlideCore)
-    kapt(Dependencies.GlideCompiler)
 
     // unit testing
     api(Dependencies.jUnit)

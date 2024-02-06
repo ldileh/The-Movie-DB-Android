@@ -12,6 +12,7 @@ object Versions{
     const val lifeCycleJava = "2.3.1"
     const val paging = "3.1.1"
     const val lottie = "6.2.0"
+    const val swipeRefreshLayout = "1.1.0"
 
     object Kotlin {
         const val core = "1.6.0"
