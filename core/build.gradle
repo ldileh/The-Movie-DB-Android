@@ -55,7 +55,7 @@ dependencies {
     api(Dependencies.RetrofitConverterGson)
 
     // unit testing
-    api(Dependencies.jUnit)
+    testApi(Dependencies.jUnit)
 
     // timber
     api(Dependencies.Timber)

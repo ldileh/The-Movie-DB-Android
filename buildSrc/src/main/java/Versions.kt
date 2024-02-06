@@ -4,7 +4,7 @@ object Versions{
     const val material = "1.8.0"
     const val constraintLayout = "2.1.4"
     const val androidSupport = "27.0.2"
-    const val jUnit = "1.1.3"
+    const val jUnit = "4.13.2"
     const val glide = "4.11.0"
     const val lifecycle = "2.3.1"
     const val hilt = "2.50"
@@ -13,11 +13,14 @@ object Versions{
     const val paging = "3.1.1"
     const val lottie = "6.2.0"
     const val swipeRefreshLayout = "1.1.0"
+    const val jUnitTestExt = "1.1.5"
+    const val espresso = "3.5.1"
 
     object Kotlin {
         const val core = "1.6.0"
         const val gradle = "1.9.0"
         const val coroutines = "1.3.8"
+        const val coroutinesTest = "1.7.3"
     }
 
     object Retrofit{

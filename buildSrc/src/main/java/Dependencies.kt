@@ -38,10 +38,15 @@ object Dependencies {
     const val HiltViewModelCompiler = "androidx.hilt:hilt-compiler:${Versions.HiltAndroidX.compiler}"
     const val HiltActivity = "androidx.activity:activity-ktx:${Versions.HiltAndroidX.activity}"
     const val HiltFragment = "androidx.fragment:fragment-ktx:${Versions.HiltAndroidX.fragment}"
+    const val HiltTest = "com.google.dagger:hilt-android-testing:${Versions.hilt}"
+    const val HiltTestCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
 
     const val Timber = "com.jakewharton.timber:timber:${Versions.timber}"
 
-    const val jUnit = "androidx.test.ext:junit:${Versions.jUnit}"
+    const val jUnit = "junit:junit:${Versions.jUnit}"
+    const val jUnitTestExt = "androidx.test.ext:junit:${Versions.jUnitTestExt}"
+    const val Espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+    const val CoroutineTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.Kotlin.coroutinesTest}"
 
     const val Paging = "androidx.paging:paging-runtime-ktx:${Versions.paging}"
 
