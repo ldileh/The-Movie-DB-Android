@@ -12,8 +12,10 @@ class ContainerView(context: Context?, attrs: AttributeSet?) : LinearLayout(cont
     private val containerView: View
     private val viewError: View
     private val viewLoading: View
+    private val viewEmpty: View
     private val tvError: TextView
     private val btnRetry: View
+    private val tvEmpty: TextView
 
     private var contentViewId: Int = -1
 
@@ -22,6 +24,7 @@ class ContainerView(context: Context?, attrs: AttributeSet?) : LinearLayout(cont
         const val SHOW_VIEW_CONTENT = 0
         const val SHOW_VIEW_ERROR = 1
         const val SHOW_VIEW_LOADING = 2
+        const val SHOW_VIEW_EMPTY = 3
     }
 
     init {
@@ -31,18 +34,22 @@ class ContainerView(context: Context?, attrs: AttributeSet?) : LinearLayout(cont
         containerView = findViewById(R.id.vc_view_container)
         viewError = findViewById(R.id.vc_view_error)
         viewLoading = findViewById(R.id.vc_view_loading)
+        viewEmpty = findViewById(R.id.vc_view_empty)
         tvError = findViewById(R.id.vc_tv_error)
         btnRetry = findViewById(R.id.vc_btn_retry)
+        tvEmpty = findViewById(R.id.vc_tv_empty)
 
         // setting default attribute value
         context?.obtainStyledAttributes(attrs, R.styleable.ContainerView)?.apply {
             try {
                 val showView = getInt(R.styleable.ContainerView_show_view, SHOW_VIEW_CONTENT)
                 val errorMessage = getString(R.styleable.ContainerView_error_message)
+                val emptyMessage = getString(R.styleable.ContainerView_empty_message)
                 contentViewId = getInt(R.styleable.ContainerView_content_view_id, -1)
 
                 setView(showView)
                 tvError.text = errorMessage
+                tvEmpty.text = emptyMessage
             }finally {
                 recycle()
             }
@@ -61,6 +68,7 @@ class ContainerView(context: Context?, attrs: AttributeSet?) : LinearLayout(cont
                 containerView.visibility = View.VISIBLE
                 viewError.visibility = View.VISIBLE
                 viewLoading.visibility = View.GONE
+                viewEmpty.visibility = View.GONE
                 getContentView()?.visibility = View.GONE
             }
 
@@ -68,6 +76,15 @@ class ContainerView(context: Context?, attrs: AttributeSet?) : LinearLayout(cont
                 containerView.visibility = View.VISIBLE
                 viewError.visibility = View.GONE
                 viewLoading.visibility = View.VISIBLE
+                viewEmpty.visibility = View.GONE
+                getContentView()?.visibility = View.GONE
+            }
+
+            SHOW_VIEW_EMPTY -> {
+                containerView.visibility = View.VISIBLE
+                viewError.visibility = View.GONE
+                viewLoading.visibility = View.GONE
+                viewEmpty.visibility = View.VISIBLE
                 getContentView()?.visibility = View.GONE
             }
 
@@ -75,6 +92,7 @@ class ContainerView(context: Context?, attrs: AttributeSet?) : LinearLayout(cont
                 containerView.visibility = View.GONE
                 viewError.visibility = View.GONE
                 viewLoading.visibility = View.GONE
+                viewEmpty.visibility = View.GONE
                 getContentView()?.visibility = View.VISIBLE
             }
         }
